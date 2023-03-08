@@ -25,8 +25,6 @@ contract Election {
         addCandidate("Rahul Gandhi");
         addCandidate("Akhilesh Yadav");
         addCandidate("Mayawati");
-        addCandidate("Rahul Entc");
-
     }
 
     function addCandidate(string memory _name) private {
@@ -41,13 +39,13 @@ contract Election {
         // require a valid candidate
         require(_candidateId > 0 && _candidateId <= candidatesCount);
 
-        // record that voter has voted
-        voters[msg.sender] = true;
+       
+        voters[msg.sender] = true;  // recording that the v
 
-        // update candidate vote Count
-        candidates[_candidateId].voteCount++;
+       
+        candidates[_candidateId].voteCount++;    // updating candidate vote count
 
-        // trigger voted event
-        emit votedEvent(_candidateId);
+        
+        emit votedEvent(_candidateId);    // Voting Event triggered
     }
 }
