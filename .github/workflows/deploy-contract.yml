@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   deploy:
@@ -36,7 +34,3 @@ jobs:
           git add frontend/src/deployments/sepolia.json
           git commit -m "Deploy Election to Sepolia"
           git push
-
-  site:
-    needs: deploy
-    uses: ./.github/workflows/pages.yml
