@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CryptoBallot · On-chain voting</title>
+    <meta name="description" content="A tamper-proof voting dApp on Ethereum. One wallet, one vote, results anyone can verify." />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="./">
+          <img src="./favicon.svg" alt="" width="28" height="28" />
+          <span>CryptoBallot</span>
+        </a>
+        <div class="topbar-actions">
+          <span id="network-pill" class="pill" hidden></span>
+          <button id="connect-btn" class="btn btn-primary" type="button">Connect wallet</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div id="banner" class="banner" hidden></div>
+
+      <section class="hero">
+        <p class="eyebrow">On-chain election</p>
+        <h1 id="election-title">Loading election…</h1>
+        <div class="stats">
+          <div class="stat"><span class="stat-label">Status</span><span id="stat-status" class="stat-value">–</span></div>
+          <div class="stat"><span class="stat-label">Total votes</span><span id="stat-total" class="stat-value">–</span></div>
+          <div class="stat"><span class="stat-label">Eligibility</span><span id="stat-eligibility" class="stat-value">–</span></div>
+          <div class="stat"><span class="stat-label">Contract</span><span id="stat-contract" class="stat-value mono">–</span></div>
+        </div>
+        <p id="voter-status" class="voter-status"></p>
+      </section>
+
+      <section>
+        <h2 class="section-title">Candidates</h2>
+        <div id="candidates" class="candidates" aria-live="polite"></div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card">
+          <h2 class="section-title">Recent votes</h2>
+          <ul id="activity" class="activity"><li class="muted">No votes yet.</li></ul>
+        </section>
+        <section class="card">
+          <h2 class="section-title">How it works</h2>
+          <ol class="steps">
+            <li><strong>Connect</strong> a wallet like MetaMask on the election's network.</li>
+            <li><strong>Vote</strong> for one candidate. The contract rejects a second vote from the same address.</li>
+            <li><strong>Verify</strong>. Every vote is a public transaction, and tallies are computed by the contract, not a server.</li>
+          </ol>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer wrap">
+      <span>Built with Solidity, Hardhat and ethers.js.</span>
+      <a href="https://github.com/eshanpandey/CryptoBallot" target="_blank" rel="noopener">Source on GitHub</a>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
