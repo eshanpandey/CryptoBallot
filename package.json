@@ -1,18 +1,35 @@
 {
-  "name": "pet-shop",
-  "version": "1.0.0",
-  "description": "",
-  "main": "truffle.js",
-  "directories": {
-    "test": "test"
+  "name": "cryptoballot",
+  "version": "2.0.0",
+  "description": "Tamper-proof on-chain voting dApp: Solidity smart contract, Hardhat test suite, and a Vite + ethers.js frontend.",
+  "private": true,
+  "license": "MIT",
+  "author": "Eshan Pandey",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eshanpandey/CryptoBallot.git"
   },
   "scripts": {
-    "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^18.0.4",
+    "hardhat": "^2.29.1",
+    "solc": "^0.8.28",
+    "solhint": "^6.2.4",
+    "vite": "^7.3.6"
+  },
+  "dependencies": {
+    "ethers": "^6.17.0"
   }
 }

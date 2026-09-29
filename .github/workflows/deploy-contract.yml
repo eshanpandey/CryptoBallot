@@ -1,0 +1,42 @@
+name: Deploy contract to Sepolia
+
+# Run manually from the Actions tab. Requires the DEPLOYER_PRIVATE_KEY secret (a wallet
+# funded with Sepolia test ETH); SEPOLIA_RPC_URL and ETHERSCAN_API_KEY are optional.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Deploy Election
+        run: npm run deploy:sepolia
+        env:
+          DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+      - name: Commit deployment address
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/deployments/sepolia.json
+          git commit -m "Deploy Election to Sepolia"
+          git push
+
+  site:
+    needs: deploy
+    uses: ./.github/workflows/pages.yml
