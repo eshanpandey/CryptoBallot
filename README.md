@@ -6,7 +6,7 @@
 
 **A tamper-proof voting dApp on Ethereum.** One wallet, one vote, and results anyone can verify on-chain, with no server in the middle.
 
-**[Live demo →](https://eshanpandey.github.io/CryptoBallot/)** (results are readable without a wallet; connect MetaMask on Sepolia to vote)
+**[Live demo →](https://crypto-ballot-gray.vercel.app/)** (results are readable without a wallet; connect MetaMask on Sepolia to vote)
 
 ![Live results](docs/results.png)
 
@@ -18,7 +18,7 @@
 - **Wallet voting** via MetaMask (or any EIP-1193 wallet) with automatic network switching, transaction status toasts and Etherscan links.
 - **Live activity feed** built from `Voted` events, refreshed every 12 seconds.
 - **Tie-aware results**: `leaders()` returns every candidate sharing the top vote count.
-- **Tested and automated**: 21 Hardhat tests at 100% line coverage, Solhint linting, and GitHub Actions for CI, Pages hosting and one-click Sepolia deployment.
+- **Tested and automated**: 21 Hardhat tests at 100% line coverage, Solhint linting, and GitHub Actions for CI and one-click Sepolia deployment, with the site on Vercel.
 
 | Voting with a wallet | Mobile (light theme) |
 | --- | --- |
@@ -87,10 +87,10 @@ Edit `ballot.config.json` before deploying:
 
 ## Deployment
 
-The site is a static build hosted on **GitHub Pages**; the contract lives on the **Sepolia** testnet.
+The site is a static build hosted on **Vercel**; the contract lives on the **Sepolia** testnet.
 
-1. **Site**: in *Settings → Pages*, set *Source* to **GitHub Actions**. Every push to `main` that touches the frontend redeploys it. Until a contract is deployed, the site shows a clearly labelled preview with sample data.
-2. **Contract**: add a `DEPLOYER_PRIVATE_KEY` repository secret for a wallet holding a little Sepolia ETH (from any Sepolia faucet), optionally `ETHERSCAN_API_KEY` to verify the source, then run *Actions → Deploy contract to Sepolia*. The workflow runs the tests, deploys, commits `frontend/src/deployments/sepolia.json` and republishes the site.
+1. **Site**: the repo is imported into Vercel with the Vite preset (root `./`, build `npm run build`, output `dist`). Every push to `main` redeploys it and each PR gets a preview URL. Until a contract is deployed, the site shows a clearly labelled preview with sample data.
+2. **Contract**: add a `DEPLOYER_PRIVATE_KEY` repository secret for a wallet holding a little Sepolia ETH (from any Sepolia faucet), optionally `ETHERSCAN_API_KEY` to verify the source, then run *Actions → Deploy contract to Sepolia*. The workflow runs the tests, deploys, and commits `frontend/src/deployments/sepolia.json`, which triggers a Vercel redeploy.
 
 To deploy from your machine instead, copy `.env.example` to `.env`, fill it in, and run `npm run deploy:sepolia`, then commit the generated `frontend/src/deployments/sepolia.json`.
 
@@ -108,7 +108,7 @@ test/Election.test.js           Hardhat + Chai test suite
 scripts/deploy.js               Deploys and exports address/ABI for the frontend
 ballot.config.json              Election title, candidates, deadline, registry mode
 frontend/                       Vite app (index.html, src/main.js, src/style.css)
-.github/workflows/              CI, GitHub Pages, and Sepolia deploy pipelines
+.github/workflows/              CI and Sepolia deploy pipelines
 ```
 
 ## License
